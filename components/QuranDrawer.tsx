@@ -30,7 +30,12 @@ const QuranDrawer: React.FC<QuranDrawerProps> = ({ surah, isOpen, onClose, isPla
   }, [surah, isOpen, data]);
 
   const handleAyahClick = (ayahNumber: number) => {
-      setActiveAyah(ayahNumber);
+      // Allow toggling selection (deselect if clicked again)
+      if (activeAyah === ayahNumber) {
+          setActiveAyah(null);
+      } else {
+          setActiveAyah(ayahNumber);
+      }
   };
 
   const copyAyahText = (text: string) => {
@@ -120,7 +125,7 @@ const QuranDrawer: React.FC<QuranDrawerProps> = ({ surah, isOpen, onClose, isPla
       {/* Floating Action Bar for Selected Ayah */}
       {/* Position dynamically adjusted based on isPlayerVisible */}
       {activeAyah && data && (
-          <div className={`fixed left-1/2 transform -translate-x-1/2 z-[60] animate-fade-in-up transition-all duration-300 ${isPlayerVisible ? 'bottom-80' : 'bottom-36'}`}>
+          <div className={`fixed left-1/2 transform -translate-x-1/2 z-[60] animate-fade-in-up transition-all duration-300 ${isPlayerVisible ? 'bottom-72' : 'bottom-24'}`}>
               <div className="flex items-center gap-2 bg-white dark:bg-emerald-800 text-emerald-900 dark:text-white px-4 py-2 rounded-full shadow-xl border border-emerald-200 dark:border-emerald-600">
                   <span className="text-sm font-bold text-emerald-700 dark:text-gold-400 px-2 border-l border-emerald-200 dark:border-emerald-600">
                       الآية {activeAyah}
